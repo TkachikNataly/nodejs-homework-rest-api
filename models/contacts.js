@@ -1,14 +1,12 @@
-
-
 const fs = require("fs/promises");
 const path = require("path");
 const ObjectID = require("bson-objectid");
-
-const contactsPath = path.join(__dirname, "db/contacts.json");
+const contactsPath = path.join(__dirname, "contacts.json");
 
 const updateContacts = async (contacts) => {
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
 };
+
 const listContacts = async () => {
   const contacts = await fs.readFile(contactsPath);
   return JSON.parse(contacts);
@@ -23,18 +21,7 @@ const getContactById = async (contactId) => {
   return contactById;
 };
 
-const removeContact = async (contactId) => {
-  const contacts = await listContacts();
-  const idx = contacts.findIndex((item) => item.id === contactId);
-  if (!idx) {
-    return null;
-  }
-  const [removedContact] = contacts.splice(idx, 1);
-  updateContacts(contacts);
-  return removedContact;
-};
-
-const addContact = async (name, email, phone) => {
+const addContact = async ({ name, email, phone }) => {
   const contacts = await listContacts();
   const newContact = {
     name,
@@ -47,14 +34,25 @@ const addContact = async (name, email, phone) => {
   return newContact;
 };
 
-const updateContact = async (contactId, { name, email, phone }) => {
+const removeContact = async (contactId) => {
   const contacts = await listContacts();
-  const idx = contacts.findIndex((e) => e.id === contactId);
+  const idx = contacts.findIndex((item) => item.id === contactId);
   if (idx === -1) {
     return null;
   }
-  contacts[idx] = { name, email, phone };
+  const [removedContact] = contacts.splice(idx, 1);
   updateContacts(contacts);
+  return removedContact;
+};
+
+const updateContact = async (contactId, { name, email, phone }) => {
+  const contacts = await listContacts();
+  const idx = contacts.findIndex((contact) => contact.id === `${contactId}`);
+  if (idx === -1) {
+    return null;
+  }
+  contacts[idx] = { contactId, name, email, phone };
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   return contacts[idx];
 };
 

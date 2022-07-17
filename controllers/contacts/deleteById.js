@@ -1,20 +1,17 @@
 const contacts = require("../../models/contacts");
-const { createError, } = require("../../utils");
+const { createError } = require("../../utils");
 
 const deleteById = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const result = await contacts.removeContact(id);
+        const { contactId } = req.params;
+        const result = await contacts.removeContact(contactId);
         if (!result) {
             throw createError(404);
-
         }
         res.json({
             message: "contact deleted",
         });
-
-    }
-    catch (error) {
+    } catch (error) {
         next(error);
     }
 };

@@ -1,6 +1,5 @@
 const contacts = require("../../models/contacts");
-const { createError, } = require("../../utils");
-
+const { createError } = require("../../utils");
 const getById = async (req, res, next) => {
     try {
         const { contactId } = req.params;
@@ -9,8 +8,7 @@ const getById = async (req, res, next) => {
             throw createError(404);
         }
         res.json(result);
-    }
-    catch (error) {
+    } catch (error) {
         next(error);
     }
 };

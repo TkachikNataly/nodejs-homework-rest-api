@@ -10,7 +10,8 @@ const add = async (req, res, next) => {
         }
         const result = await contacts.addContact(req.body);
         res.status(201).json(result);
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
 };
