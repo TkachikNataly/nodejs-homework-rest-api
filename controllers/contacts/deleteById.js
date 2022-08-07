@@ -1,20 +1,17 @@
 const { Contact } = require("../../models/contacts");
 
 const { createError } = require("../../utils");
-
-const deleteById = async (req, res, next) => {
+const getById = async (req, res, next) => {
     try {
         const { contactId } = req.params;
-        const result = await Contact.findByIdAndRemove(contactId);
+        const result = await Contact.findById(contactId);
         if (!result) {
             throw createError(404);
         }
-        res.json({
-            message: "Book deleted",
-        });
+        res.json(result);
     } catch (error) {
         next(error);
     }
 };
 
-module.exports = deleteById;
+module.exports = getById;
