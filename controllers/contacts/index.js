@@ -5,7 +5,6 @@ const updateById = require("./updateById");
 const deleteById = require("./deleteById");
 const updateFavorite = require("./updateFavorite");
 
-
 module.exports = {
     getAll,
     getById,

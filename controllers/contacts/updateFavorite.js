@@ -11,7 +11,6 @@ const updateFavorite = async (req, res, next) => {
 
         if (!result) {
             throw createError(404);
-
         }
 
         if (!req.body) {
@@ -19,8 +18,7 @@ const updateFavorite = async (req, res, next) => {
         }
 
         res.json(result);
-    }
-    catch (error) {
+    } catch (error) {
         next(error);
     }
 };

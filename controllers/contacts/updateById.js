@@ -1,7 +1,6 @@
 const { Contact } = require("../../models/contacts");
+
 const { createError } = require("../../utils");
-
-
 
 const updateById = async (req, res, next) => {
     try {

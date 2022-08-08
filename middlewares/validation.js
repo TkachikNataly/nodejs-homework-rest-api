@@ -7,9 +7,9 @@ const validation = (schema) => {
             return next(error);
         }
         next();
-    }
+    };
+
     return func;
 };
 
-
-module.exports = validation
+module.exports = validation;
