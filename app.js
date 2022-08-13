@@ -2,7 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const multer = require("multer");
+
+
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
@@ -11,23 +12,6 @@ const authRouter = require("./routes/api/auth");
 
 const app = express();
 
-const tempDir = path.join(__dirname, "temp");
-
-const multerConfig = multer.diskStorage({
-  distination: tempDir,
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  }
-})
-
-const upload = multer({
-  storage: multerConfig
-})
-app.post("/api/contacts", upload.single("cover"), (req, res) => {
-
-
-})
-app.listen(3005);
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
