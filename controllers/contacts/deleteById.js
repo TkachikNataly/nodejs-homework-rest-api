@@ -8,7 +8,7 @@ const getById = async (req, res, next) => {
         if (!result) {
             throw createError(404);
         }
-        res.json(result);
+        res.json({ message: "Deleted" });
     } catch (error) {
         next(error);
     }
