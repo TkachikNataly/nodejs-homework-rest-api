@@ -15,7 +15,7 @@ const userSchema = Schema(
         subscription: {
             type: String,
             enum: ["starter", "pro", "business"],
-            default: "pro",
+            default: "starter",
         },
         token: {
             type: String,
@@ -25,13 +25,21 @@ const userSchema = Schema(
             type: String,
             required: true,
         },
+        verify: {
+            type: Boolean,
+            default: false,
+        },
+        verificationToken: {
+            type: String,
+            required: [true, "Verify token is required"],
+        },
     },
     { versionKey: false, timestamps: true }
 );
 
 const User = model("user", userSchema);
 
-const signup = Joi.object({
+const register = Joi.object({
     password: Joi.string().required(),
     email: Joi.string().required(),
     subscription: Joi.string(),
@@ -39,13 +47,18 @@ const signup = Joi.object({
 });
 
 const login = Joi.object({
-    password: Joi.string().required(),
+    password: Joi.string().min(6).required(),
+    email: Joi.string().required(),
+});
+
+const email = Joi.object({
     email: Joi.string().required(),
 });
 
 const schemas = {
-    signup,
+    register,
     login,
+    email,
 };
 
 module.exports = { User, schemas };

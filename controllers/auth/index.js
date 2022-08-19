@@ -3,5 +3,7 @@ const login = require("./login");
 const getCurrent = require("./getCurrent");
 const logout = require("./logout");
 const setAvatar = require("./setAvatar");
+const verifyEmail = require("./verifyEmail");
+const resendVerifyEmail = require("./resendVeifyEmail");
 
-module.exports = { signup, login, getCurrent, logout, setAvatar };
+module.exports = { signup, login, getCurrent, logout, setAvatar, verifyEmail, resendVerifyEmail, };
